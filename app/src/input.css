@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+body{
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+
+.conatiner {
+  width: 98%;
+  margin: auto;
+}
+
+
+/* .textarea {
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+} */
+
+
+.input-field::-webkit-scrollbar {
+  width: 6px;
+  background-color: #2a2a2a;
+}
+
+
+.input-field::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+
+.input-field::-webkit-scrollbar-track{
+  background: rgba(13, 13, 13, 0.1);
+}
+
+
+.text-content {
+  overflow-wrap: break-word;
+}
+
+
+.chats::-webkit-scrollbar {
+  width: 6px;
+  background-color: #2a2a2a;
+}
+
+
+.chats::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+
+.chats::-webkit-scrollbar-track{
+  background: rgba(13, 13, 13, 0.1);
+}

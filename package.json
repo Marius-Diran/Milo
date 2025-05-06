@@ -1,0 +1,15 @@
+{
+  "name": "milo",
+  "version": "1.0.0",
+  "description": "A friendly AI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marius Odediran.",
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.5",
+    "tailwindcss": "^4.1.5"
+  }
+}
