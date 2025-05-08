@@ -1,11 +1,10 @@
 {
-  "type": "module",
   "name": "milo",
   "version": "1.0.0",
   "description": "A friendly AI.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js",
+    "start": "node server/index.js",
     "dev": "nodemon server/index.js"
   },
   "author": "Marius Odediran.",
