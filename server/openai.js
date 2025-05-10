@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
   }
   try {
     const completion = await openai.chat.completions.create({
-      model: "qwen/qwen3-0.6b-04-28:free",
+      model: "openai/gpt-4o-mini-2024-07-18",
       messages: [
         {
           role: "user",

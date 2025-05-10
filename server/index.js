@@ -16,7 +16,7 @@ app.use(express.static(initial_path));
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(initial_path, "../app/src/index.html"));
+  res.sendFile(path.join(initial_path, "/app/src/index.html"));
 });
 
 // OpenAI route
