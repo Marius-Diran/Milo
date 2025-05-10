@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
   }
   try {
     const completion = await openai.chat.completions.create({
-      model: "microsoft/phi-4-reasoning-plus:free",
+      model: "qwen/qwen3-0.6b-04-28:free",
       messages: [
         {
           role: "user",
