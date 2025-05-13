@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     messageDiv.className = "ai-response my-4 w-full flex justify-start";
 
     const messageParagraph = document.createElement("p");
-    messageParagraph.className = "inline-block max-w-[50%] py-2 px-4 rounded-4xl bg-[#303030] break-words text-content";
+    messageParagraph.className = "inline-block max-w-[50%] py-2 px-4 rounded-4xl bg-[#303030] break-words text-content max-sm:max-w-[70%]";
     messageParagraph.textContent = message;
     
     messageDiv.appendChild(messageParagraph);
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       messageDiv.className = "user-input my-4 w-full flex justify-end";
 
       const messageParagraph = document.createElement("p");
-      messageParagraph.className = "inline-block max-w-[50%] py-2 px-4 rounded-4xl bg-[#303030] break-words text-content";
+      messageParagraph.className = "inline-block max-w-[50%] py-2 px-4 rounded-4xl bg-[#303030] break-words text-content max-sm:max-w-[70%]";
       messageParagraph.textContent = message;
       
       messageDiv.appendChild(messageParagraph);

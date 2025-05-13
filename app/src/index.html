@@ -8,36 +8,36 @@
 </head>
 <body>
   <div class="chatbot-flex flex h-[100vh] bg-[#171717] w-full">
-    <div class="side-bar bg-[#171717] w-[15%]">Hello</div>
-    <div class="main-content bg-[#212121] w-[85%]">
-      <nav class="main-nav flex mt-[3vh] px-4">
-        <h1 class="text-white text-lg ml-[1vw] font-semibold">Milo</h1>
-        <button class="login-btn border-[1px] border-solid border-[#414141] w-[7%] h-[4.5vh] rounded-4xl font-medium ml-[67vw] mr-3 hover:cursor-pointer hover:bg-[#333333]">Login</button>
-        <button class="signup-btn border-[1px] border-solid border-[#414141] w-[9%] rounded-4xl font-medium hover:cursor-pointer hover:bg-[#333333]">Sign up</button>
+    <div class="side-bar bg-[#171717] w-[15%] max-sm:hidden">Hello</div>
+    <div class="main-content bg-[#212121] w-[85%] max-sm:w-full">
+      <nav class="main-nav flex mt-[3vh] px-4 max-sm:border-b-[1px] border-solid border-[#414141] max-sm:pb-3 max-sm:mt-[2vh]">
+        <i class="fa-solid fa-bars mt-0.5 text-2xl hover:cursor-pointer"></i>
+        <h1 class="text-white text-lg ml-[3vw] font-semibold max-sm:ml-[23vw]">Milo</h1>
+        <button class="login-btn border-[1px] border-solid border-[#414141] w-[7%] h-[4.5vh] rounded-4xl font-medium ml-[67vw] mr-3 hover:cursor-pointer hover:bg-[#333333] max-sm:text-[0.8rem] max-sm:ml-[20vw] max-sm:w-[20%]">Login</button>
+        <button class="signup-btn border-[1px] border-solid border-[#414141] w-[9%] rounded-4xl font-medium hover:cursor-pointer hover:bg-[#333333] max-sm:text-[0.8rem] max-sm:w-[20%]">Sign up</button>
       </nav>
 
 
       <div class="chat-space">
         <div class="container">
-          <div class="chats w-[70%] mx-auto h-[73vh] mt-[0vh] px-4 overflow-y-auto scroll-smooth">
-            <div class="user-input my-4 w-full flex justify-end">
-              <p class="max-w-[50%] text-center py-2 px-4 rounded-4xl bg-[#303030] break-words text-content ml-auto hidden">Hello World Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit quia vitae odit quidem exercitationem beatae vel error! Ad, libero voluptates.
-              </p>
+          <div class="chats w-[70%] mx-auto h-[73vh] mt-[0vh] px-4 overflow-y-auto scroll-smooth max-sm:h-[69vh] max-sm:w-[95%]">
+            <div class="user-input my-4 w-full flex justify-end max-sm:my-0">
+              <p class="max-w-[50%] text-center py-2 px-4 rounded-4xl bg-[#303030] break-words text-content ml-auto hidden max-sm:max-w-[70%]"></p>
             </div>
             <div class="ai-response my-10 w-full flex justify-start">
-              <p class="max-w-[50%] text-center py-2 px-4 rounded-4xl bg-[#303030] break-words text-content mr-auto hidden"></p>
+              <p class="max-w-[50%] text-center py-2 px-4 rounded-4xl bg-[#303030] break-words text-content mr-auto hidden max-sm:max-w-[70%]"></p>
             </div>
           </div>
         </div>
       </div>
 
 
-      <div class="input-box w-[60%] min-h-[10vh] max-h-[20vh] border-[1px] border-solid border-[#414141] rounded-3xl flex flex-col z-10 mt-[2vh] ml-[16vw] mr-[2vw] bg-[#303030] relative">
+      <div class="input-box w-[60%] min-h-[10vh] max-h-[20vh] border-[1px] border-solid border-[#414141] rounded-3xl flex flex-col z-10 mt-[2vh] ml-[16vw] mr-[2vw] bg-[#303030] relative max-sm:w-[95%] max-sm:ml-[2.6vw] max-sm:-mt-[2.5vh]">
         <div class="textarea-div w-full h-fit">
           <textarea type="text" class="input-field w-[100%] bg-transparent box-border overflow-y-auto min-h-[1.5vh] max-h-[6vh] leading-[1.6] focus:outline-0 mt-2 h-auto resize-none px-4 py-0.5 scroll-smooth" rows="2" placeholder="Type your message here..."></textarea>
         </div>
         <div class="btns-div flex justify-end px-2 py-2">
-          <button class="w-[5.5%] h-10 border-[1px] border-[#414141] rounded-4xl flex justify-center items-center bg-gradient-to-b from-[#4a4a4a] to-[#2a2a2a] shadow-[0_4px_0_#1c1c1c] hover:translate-y-[1px] active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-150 ease-in-out"><i class="fa-solid fa-paper-plane text-center"></i></button>
+          <button class="w-[5.5%] h-10 border-[1px] border-[#414141] rounded-4xl flex justify-center items-center bg-gradient-to-b from-[#4a4a4a] to-[#2a2a2a] shadow-[0_4px_0_#1c1c1c] hover:translate-y-[1px] active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-150 ease-in-out max-sm:w-[10%]"><i class="fa-solid fa-paper-plane text-center"></i></button>
         </div>
       </div>
     </div>

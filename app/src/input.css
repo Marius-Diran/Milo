@@ -7,6 +7,7 @@ body{
   font-size: 16px;
   line-height: 1.5;
   color: #fff;
+  overflow: hidden;
 }
 
 
@@ -16,26 +17,17 @@ body{
 }
 
 
-/* .textarea {
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
-} */
-
-
 .input-field::-webkit-scrollbar {
   width: 6px;
-  background-color: #2a2a2a;
 }
-
-
+    
+.input-field::-webkit-scrollbar-track {
+  background: #212121;
+}
+    
 .input-field::-webkit-scrollbar-thumb {
-  background-color: #555;
+  background: #414141;
   border-radius: 10px;
-}
-
-
-.input-field::-webkit-scrollbar-track{
-  background: rgba(13, 13, 13, 0.1);
 }
 
 
@@ -44,18 +36,21 @@ body{
 }
 
 
+/* Improve scrollbar appearance */
 .chats::-webkit-scrollbar {
   width: 6px;
-  background-color: #2a2a2a;
 }
-
-
+    
+.chats::-webkit-scrollbar-track {
+  background: #212121;
+}
+    
 .chats::-webkit-scrollbar-thumb {
-  background-color: #555;
+  background: #414141;
   border-radius: 10px;
 }
 
-
-.chats::-webkit-scrollbar-track{
-  background: rgba(13, 13, 13, 0.1);
+.text-content {
+  white-space: pre-wrap;
+  word-break: break-word;
 }
