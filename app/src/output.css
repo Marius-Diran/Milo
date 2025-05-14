@@ -608,6 +608,11 @@ body {
     bottom: calc(constant(safe-area-inset-bottom) + 1.5vh);
   }
 }
+@media (max-width: 375px) {
+  .send-btn {
+    width: 11.5%;
+  }
+}
 @media (max-width: 320px) {
   nav h1 {
     font-size: 1.2rem;
@@ -618,11 +623,6 @@ body {
   }
   .send-btn {
     width: 14.5%;
-  }
-}
-@media (max-width: 375px) {
-  .send-btn {
-    width: 11.5%;
   }
 }
 @property --tw-border-style {
