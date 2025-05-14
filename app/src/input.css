@@ -54,3 +54,32 @@ body{
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+@media (max-width: 425px) and (min-width: 320px) {
+  .input-box {
+    bottom: calc(env(safe-area-inset-bottom) + 2vh);
+    bottom: calc(constant(safe-area-inset-bottom) + 1.5vh);
+  }
+}
+
+@media (max-width: 320px){
+  nav h1 {
+    font-size: 1.2rem;
+    margin-left: 15vw;
+  }
+
+  .login-btn {
+    margin-left: 18vw;
+  }
+
+  .send-btn{
+    width:  14.5%;
+  }
+  
+}
+
+@media (max-width: 375px){
+  .send-btn{
+    width:  11.5%;
+  }
+}

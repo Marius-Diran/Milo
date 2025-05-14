@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/markdown-styles.css" rel="stylesheet">
   <link href="/output.css" rel="stylesheet">
   <title>Milo</title>
 </head>
@@ -20,7 +21,7 @@
 
       <div class="chat-space">
         <div class="container">
-          <div class="chats w-[70%] mx-auto h-[73vh] mt-[0vh] px-4 overflow-y-auto scroll-smooth max-sm:h-[69vh] max-sm:w-[95%]">
+          <div class="chats w-[70%] mx-auto h-[73vh] mt-[0vh] px-4 overflow-y-auto scroll-smooth max-sm:h-[68vh] max-sm:w-[95%]">
             <div class="user-input my-4 w-full flex justify-end max-sm:my-0">
               <p class="max-w-[50%] text-center py-2 px-4 rounded-4xl bg-[#303030] break-words text-content ml-auto hidden max-sm:max-w-[70%]"></p>
             </div>
@@ -32,18 +33,19 @@
       </div>
 
 
-      <div class="input-box w-[60%] min-h-[10vh] max-h-[20vh] border-[1px] border-solid border-[#414141] rounded-3xl flex flex-col z-10 mt-[2vh] ml-[16vw] mr-[2vw] bg-[#303030] relative max-sm:w-[95%] max-sm:ml-[2.6vw] max-sm:-mt-[2.5vh]">
+      <div class="input-box w-[60%] min-h-[10vh] max-h-[20vh] border-[1px] border-solid border-[#414141] rounded-3xl flex flex-col z-10 mt-[2vh] ml-[16vw] mr-[2vw] bg-[#303030] fixed max-sm:w-[95%] max-sm:ml-[2.6vw]">
         <div class="textarea-div w-full h-fit">
           <textarea type="text" class="input-field w-[100%] bg-transparent box-border overflow-y-auto min-h-[1.5vh] max-h-[6vh] leading-[1.6] focus:outline-0 mt-2 h-auto resize-none px-4 py-0.5 scroll-smooth" rows="2" placeholder="Type your message here..."></textarea>
         </div>
         <div class="btns-div flex justify-end px-2 py-2">
-          <button class="w-[5.5%] h-10 border-[1px] border-[#414141] rounded-4xl flex justify-center items-center bg-gradient-to-b from-[#4a4a4a] to-[#2a2a2a] shadow-[0_4px_0_#1c1c1c] hover:translate-y-[1px] active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-150 ease-in-out max-sm:w-[10%]"><i class="fa-solid fa-paper-plane text-center"></i></button>
+          <button class="w-[4.5%] h-10 border-[1px] border-[#414141] rounded-4xl flex justify-center items-center bg-gradient-to-b from-[#4a4a4a] to-[#2a2a2a] shadow-[0_4px_0_#1c1c1c] hover:translate-y-[1px] active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-150 ease-in-out max-sm:w-[10%] send-btn"><i class="fa-solid fa-paper-plane text-center"></i></button>
         </div>
       </div>
     </div>
   </div>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.2/dist/purify.min.js"></script>
   <script src="https://kit.fontawesome.com/ad2f1382aa.js" crossorigin="anonymous"></script>
   <script src="ai.js"></script>
 </body>

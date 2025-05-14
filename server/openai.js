@@ -11,7 +11,7 @@ const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENROUTE_AI,
   defaultHeaders: {
-    "HTTP-Referer": "http://localhost:8080", // Optional. Site URL for rankings on openrouter.ai.
+    "HTTP-Referer": "https://milo-beryl.vercel.app/", // Optional. Site URL for rankings on openrouter.ai.
     "X-Title": "Milo", // Optional. Site title for rankings on openrouter.ai.
   },
 });
