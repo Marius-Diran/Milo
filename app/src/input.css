@@ -8,6 +8,8 @@ body{
   line-height: 1.5;
   color: #fff;
   overflow: hidden;
+  height: 100%;
+  overflow-y: auto;
 }
 
 
