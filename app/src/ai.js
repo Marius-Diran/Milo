@@ -4,8 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatsContainer = document.querySelector(".chats")
   const originalHeight = textarea.scrollHeight
 
-  // ADD THIS: Store conversation history
+  // Store conversation history
   let conversationMessages = []
+
+  // Mobile detection and keyboard handling
+  let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  let initialViewportHeight = window.innerHeight
+
+  // Auto-scroll control variables
+  let shouldAutoScroll = true
+  let isUserScrolling = false
+  let scrollTimeout = null
 
   // Make sure marked is loaded
   const markedScript = document.createElement("script")
@@ -22,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   highlightJs.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"
   document.head.appendChild(highlightJs)
 
-  // Add some basic styles for Markdown and mobile keyboard handling
+  // Add styles for Markdown and mobile keyboard handling
   const markdownStyles = document.createElement("style")
   markdownStyles.textContent = `
     .markdown-content h1, .markdown-content h2, .markdown-content h3 { 
@@ -73,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
       border: 1px solid #555;
       padding: 0.3em 0.5em;
     }
-    /* Add a fade-in animation */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -84,13 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
     
     /* Mobile keyboard handling styles */
     @media screen and (max-width: 768px) {
-      /* Use dynamic viewport height to account for mobile keyboard */
       .chats {
         height: calc(100dvh - 120px) !important;
         max-height: calc(100dvh - 120px) !important;
       }
       
-      /* Ensure input area stays above keyboard */
       .input-area {
         position: fixed !important;
         bottom: 0 !important;
@@ -102,20 +108,16 @@ document.addEventListener("DOMContentLoaded", () => {
         padding: 10px !important;
       }
       
-      /* Add padding to body to prevent content from being hidden behind fixed input */
       body {
         padding-bottom: 100px !important;
       }
       
-      /* Adjust main container */
       .main-container {
         padding-bottom: 100px !important;
       }
     }
     
-    /* Handle keyboard appearance/disappearance */
     @supports (-webkit-touch-callout: none) {
-      /* iOS Safari specific */
       @media screen and (max-width: 768px) {
         .chats {
           height: calc(100vh - env(keyboard-inset-height, 120px)) !important;
@@ -126,39 +128,53 @@ document.addEventListener("DOMContentLoaded", () => {
   `
   document.head.appendChild(markdownStyles)
 
-  // ADD THIS: Mobile keyboard handling
-  let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-  let initialViewportHeight = window.innerHeight
-  
-  // ADD THIS: Auto-scroll control variables  
-  let shouldAutoScroll = true
-  let isUserScrolling = false
-  let scrollTimeout = null
-  
   // Function to handle viewport changes (keyboard appearance)
   function handleViewportChange() {
     if (isMobile) {
       const currentHeight = window.innerHeight
       const keyboardHeight = initialViewportHeight - currentHeight
       
-      if (keyboardHeight > 100) { // Keyboard is likely open
-        // Adjust chat container height
+      if (keyboardHeight > 100) {
         chatsContainer.style.height = `calc(100vh - 120px - ${keyboardHeight}px)`
         chatsContainer.style.maxHeight = `calc(100vh - 120px - ${keyboardHeight}px)`
-        
-        // Scroll to bottom to show latest message
-        setTimeout(() => {
-          smartScroll()
-        }, 100)
-      } else { // Keyboard is likely closed
-        // Reset chat container height
+        setTimeout(() => smartScroll(), 100)
+      } else {
         chatsContainer.style.height = 'calc(100dvh - 120px)'
         chatsContainer.style.maxHeight = 'calc(100dvh - 120px)'
       }
     }
   }
-  
-  // Listen for viewport changes
+
+  // Function to check if user is at bottom of chat
+  function isAtBottom() {
+    const threshold = 100
+    return chatsContainer.scrollTop + chatsContainer.clientHeight >= chatsContainer.scrollHeight - threshold
+  }
+
+  // Smart scroll function
+  function smartScroll() {
+    if (shouldAutoScroll && !isUserScrolling) {
+      chatsContainer.scrollTop = chatsContainer.scrollHeight
+    }
+  }
+
+  // Scroll event listener to detect user scrolling
+  chatsContainer.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout)
+    isUserScrolling = true
+    
+    if (isAtBottom()) {
+      shouldAutoScroll = true
+    } else {
+      shouldAutoScroll = false
+    }
+    
+    scrollTimeout = setTimeout(() => {
+      isUserScrolling = false
+    }, 150)
+  })
+
+  // Mobile keyboard event listeners
   if (isMobile) {
     window.addEventListener('resize', handleViewportChange)
     window.addEventListener('orientationchange', () => {
@@ -168,7 +184,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 500)
     })
     
-    // Handle focus/blur events for better keyboard detection
     textarea.addEventListener('focus', () => {
       setTimeout(handleViewportChange, 300)
     })
@@ -177,40 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(handleViewportChange, 300)
     })
   }
-
-  // ADD THIS: Function to check if user is at bottom of chat
-  function isAtBottom() {
-    const threshold = 100 // pixels from bottom
-    return chatsContainer.scrollTop + chatsContainer.clientHeight >= chatsContainer.scrollHeight - threshold
-  }
-
-  // ADD THIS: Smart scroll function
-  function smartScroll() {
-    if (shouldAutoScroll && !isUserScrolling) {
-      chatsContainer.scrollTop = chatsContainer.scrollHeight
-    }
-  }
-
-  // ADD THIS: Scroll event listener to detect user scrolling
-  chatsContainer.addEventListener('scroll', () => {
-    // Clear any existing timeout
-    clearTimeout(scrollTimeout)
-    
-    // Mark that user is scrolling
-    isUserScrolling = true
-    
-    // Check if user scrolled back to bottom
-    if (isAtBottom()) {
-      shouldAutoScroll = true
-    } else {
-      shouldAutoScroll = false
-    }
-    
-    // Reset user scrolling flag after they stop scrolling
-    scrollTimeout = setTimeout(() => {
-      isUserScrolling = false
-    }, 150)
-  })
 
   // Wait for marked and highlight.js to load
   function waitForDependencies(callback) {
@@ -231,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
       messageContainer.className =
         "inline-block max-w-[80%] py-2 px-4 rounded-4xl break-words text-content max-sm:max-w-[100%] max-sm:-ml-4 markdown-content"
 
-      // Configure marked for syntax highlighting
       marked.setOptions({
         breaks: true,
         gfm: true,
@@ -245,17 +225,15 @@ document.addEventListener("DOMContentLoaded", () => {
               console.error("Highlight error:", err)
             }
           }
-          // Use auto-detection if language isn't specified
           try {
             return hljs.highlightAuto(code).value
           } catch (err) {
             console.error("Auto highlight error:", err)
           }
-          return code // Return original code if highlighting fails
+          return code
         },
       })
 
-      // Parse the markdown to HTML but don't add it to the DOM yet
       const rawHTML = marked.parse(message)
       let index = 0
       const tempDiv = document.createElement("div")
@@ -264,22 +242,19 @@ document.addEventListener("DOMContentLoaded", () => {
       function typeWriter() {
         if (index < rawHTML.length) {
           tempDiv.innerHTML = rawHTML.slice(0, index + 1)
-          smartScroll() // UPDATED: Use smart scroll instead of direct scroll
+          smartScroll()
 
-          // Apply syntax highlighting to any complete code blocks as they appear
           tempDiv.querySelectorAll("pre code").forEach((block) => {
             if (!block.className.includes("hljs")) {
               try {
                 hljs.highlightElement(block)
-              } catch (e) {
-              }
+              } catch (e) {}
             }
           })
 
           index++
           setTimeout(typeWriter, 10)
         } else {
-          // Final pass to ensure all code blocks are highlighted
           tempDiv.querySelectorAll("pre code").forEach((block) => {
             if (!block.className.includes("hljs")) {
               hljs.highlightElement(block)
@@ -291,8 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       messageDiv.appendChild(messageContainer)
       chatsContainer.appendChild(messageDiv)
-
-      // UPDATED: Use smart scroll
       smartScroll()
     })
   }
@@ -304,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingDiv.innerHTML =
       '<p class="inline-block max-w-[50%] py-2 px-4 rounded-4xl bg-[#303030] break-words text-content">...</p>'
     chatsContainer.appendChild(loadingDiv)
-    smartScroll() // UPDATED: Use smart scroll
+    smartScroll()
     return loadingDiv
   }
 
@@ -315,10 +288,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // UPDATED: Function to send message to API with conversation history
+  // Function to send message to API with conversation history
   async function sendMessageToAPI(message) {
     try {
-      // Add user message to conversation history
       const userMessage = {
         role: "user",
         content: message
@@ -349,7 +321,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await response.json()
       
-      // Update conversation history with the full conversation from API
       if (data.messages) {
         conversationMessages = data.messages
       }
@@ -366,10 +337,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const message = textarea.value.trim()
 
     if (message) {
-      // UPDATED: Reset auto-scroll when sending new message
       shouldAutoScroll = true
       
-      // Create user message element
       const messageDiv = document.createElement("div")
       messageDiv.className = "user-input my-4 w-full flex justify-end"
 
@@ -384,16 +353,14 @@ document.addEventListener("DOMContentLoaded", () => {
       textarea.value = ""
       textarea.style.height = "auto"
 
-      smartScroll() // UPDATED: Use smart scroll
+      smartScroll()
 
       const loadingIndicator = showLoadingIndicator()
 
       try {
         const response = await sendMessageToAPI(message)
-
         removeLoadingIndicator(loadingIndicator)
 
-        // Add API response to UI
         if (response.error) {
           addAIResponse("Sorry, I couldn't process your message. Please try again.")
         } else {
@@ -401,14 +368,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } catch (error) {
         removeLoadingIndicator(loadingIndicator)
-
         addAIResponse("Sorry, there was an error connecting to the AI service.")
         console.error("Error:", error)
       }
     }
   }
 
-  // Event listener for Enter key
+  // Event listeners
   textarea.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey && !isMobile) {
       event.preventDefault()
@@ -418,10 +384,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sendButton.addEventListener("click", sendMessage)
 
-  // Auto-resize textarea as user types
   textarea.addEventListener("input", function () {
     this.style.height = "auto"
-
     if (this.value.trim() === "") {
       this.style.height = "auto"
     } else {
