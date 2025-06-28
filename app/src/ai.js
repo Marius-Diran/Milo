@@ -7,11 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // ADD THIS: Store conversation history
   let conversationMessages = []
 
-  // ADD THIS: Auto-scroll control variables
-  let shouldAutoScroll = true
-  let isUserScrolling = false
-  let scrollTimeout = null
-
   // Make sure marked is loaded
   const markedScript = document.createElement("script")
   markedScript.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js"
@@ -27,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   highlightJs.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"
   document.head.appendChild(highlightJs)
 
-  // Add some basic styles for Markdown
+  // Add some basic styles for Markdown and mobile keyboard handling
   const markdownStyles = document.createElement("style")
   markdownStyles.textContent = `
     .markdown-content h1, .markdown-content h2, .markdown-content h3 { 
@@ -86,8 +81,102 @@ document.addEventListener("DOMContentLoaded", () => {
     .fade-in {
       animation: fadeIn 0.5s ease-in-out;
     }
+    
+    /* Mobile keyboard handling styles */
+    @media screen and (max-width: 768px) {
+      /* Use dynamic viewport height to account for mobile keyboard */
+      .chats {
+        height: calc(100dvh - 120px) !important;
+        max-height: calc(100dvh - 120px) !important;
+      }
+      
+      /* Ensure input area stays above keyboard */
+      .input-area {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 1000 !important;
+        background: var(--bg-color, #1a1a1a) !important;
+        border-top: 1px solid #333 !important;
+        padding: 10px !important;
+      }
+      
+      /* Add padding to body to prevent content from being hidden behind fixed input */
+      body {
+        padding-bottom: 100px !important;
+      }
+      
+      /* Adjust main container */
+      .main-container {
+        padding-bottom: 100px !important;
+      }
+    }
+    
+    /* Handle keyboard appearance/disappearance */
+    @supports (-webkit-touch-callout: none) {
+      /* iOS Safari specific */
+      @media screen and (max-width: 768px) {
+        .chats {
+          height: calc(100vh - env(keyboard-inset-height, 120px)) !important;
+          max-height: calc(100vh - env(keyboard-inset-height, 120px)) !important;
+        }
+      }
+    }
   `
   document.head.appendChild(markdownStyles)
+
+  // ADD THIS: Mobile keyboard handling
+  let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  let initialViewportHeight = window.innerHeight
+  
+  // ADD THIS: Auto-scroll control variables  
+  let shouldAutoScroll = true
+  let isUserScrolling = false
+  let scrollTimeout = null
+  
+  // Function to handle viewport changes (keyboard appearance)
+  function handleViewportChange() {
+    if (isMobile) {
+      const currentHeight = window.innerHeight
+      const keyboardHeight = initialViewportHeight - currentHeight
+      
+      if (keyboardHeight > 100) { // Keyboard is likely open
+        // Adjust chat container height
+        chatsContainer.style.height = `calc(100vh - 120px - ${keyboardHeight}px)`
+        chatsContainer.style.maxHeight = `calc(100vh - 120px - ${keyboardHeight}px)`
+        
+        // Scroll to bottom to show latest message
+        setTimeout(() => {
+          smartScroll()
+        }, 100)
+      } else { // Keyboard is likely closed
+        // Reset chat container height
+        chatsContainer.style.height = 'calc(100dvh - 120px)'
+        chatsContainer.style.maxHeight = 'calc(100dvh - 120px)'
+      }
+    }
+  }
+  
+  // Listen for viewport changes
+  if (isMobile) {
+    window.addEventListener('resize', handleViewportChange)
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        initialViewportHeight = window.innerHeight
+        handleViewportChange()
+      }, 500)
+    })
+    
+    // Handle focus/blur events for better keyboard detection
+    textarea.addEventListener('focus', () => {
+      setTimeout(handleViewportChange, 300)
+    })
+    
+    textarea.addEventListener('blur', () => {
+      setTimeout(handleViewportChange, 300)
+    })
+  }
 
   // ADD THIS: Function to check if user is at bottom of chat
   function isAtBottom() {
@@ -321,9 +410,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Event listener for Enter key
   textarea.addEventListener("keydown", (event) => {
-    // Check if user is on mobile
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-
     if (event.key === "Enter" && !event.shiftKey && !isMobile) {
       event.preventDefault()
       sendMessage()
