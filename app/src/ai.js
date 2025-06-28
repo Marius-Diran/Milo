@@ -7,6 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // ADD THIS: Store conversation history
   let conversationMessages = []
 
+  // ADD THIS: Auto-scroll control variables
+  let shouldAutoScroll = true
+  let isUserScrolling = false
+  let scrollTimeout = null
+
   // Make sure marked is loaded
   const markedScript = document.createElement("script")
   markedScript.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js"
@@ -84,6 +89,40 @@ document.addEventListener("DOMContentLoaded", () => {
   `
   document.head.appendChild(markdownStyles)
 
+  // ADD THIS: Function to check if user is at bottom of chat
+  function isAtBottom() {
+    const threshold = 100 // pixels from bottom
+    return chatsContainer.scrollTop + chatsContainer.clientHeight >= chatsContainer.scrollHeight - threshold
+  }
+
+  // ADD THIS: Smart scroll function
+  function smartScroll() {
+    if (shouldAutoScroll && !isUserScrolling) {
+      chatsContainer.scrollTop = chatsContainer.scrollHeight
+    }
+  }
+
+  // ADD THIS: Scroll event listener to detect user scrolling
+  chatsContainer.addEventListener('scroll', () => {
+    // Clear any existing timeout
+    clearTimeout(scrollTimeout)
+    
+    // Mark that user is scrolling
+    isUserScrolling = true
+    
+    // Check if user scrolled back to bottom
+    if (isAtBottom()) {
+      shouldAutoScroll = true
+    } else {
+      shouldAutoScroll = false
+    }
+    
+    // Reset user scrolling flag after they stop scrolling
+    scrollTimeout = setTimeout(() => {
+      isUserScrolling = false
+    }, 150)
+  })
+
   // Wait for marked and highlight.js to load
   function waitForDependencies(callback) {
     if (window.marked && window.hljs) {
@@ -136,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
       function typeWriter() {
         if (index < rawHTML.length) {
           tempDiv.innerHTML = rawHTML.slice(0, index + 1)
-          chatsContainer.scrollTop = chatsContainer.scrollHeight
+          smartScroll() // UPDATED: Use smart scroll instead of direct scroll
 
           // Apply syntax highlighting to any complete code blocks as they appear
           tempDiv.querySelectorAll("pre code").forEach((block) => {
@@ -164,8 +203,8 @@ document.addEventListener("DOMContentLoaded", () => {
       messageDiv.appendChild(messageContainer)
       chatsContainer.appendChild(messageDiv)
 
-      // Scroll to bottom
-      chatsContainer.scrollTop = chatsContainer.scrollHeight
+      // UPDATED: Use smart scroll
+      smartScroll()
     })
   }
 
@@ -176,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingDiv.innerHTML =
       '<p class="inline-block max-w-[50%] py-2 px-4 rounded-4xl bg-[#303030] break-words text-content">...</p>'
     chatsContainer.appendChild(loadingDiv)
-    chatsContainer.scrollTop = chatsContainer.scrollHeight
+    smartScroll() // UPDATED: Use smart scroll
     return loadingDiv
   }
 
@@ -238,6 +277,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const message = textarea.value.trim()
 
     if (message) {
+      // UPDATED: Reset auto-scroll when sending new message
+      shouldAutoScroll = true
+      
       // Create user message element
       const messageDiv = document.createElement("div")
       messageDiv.className = "user-input my-4 w-full flex justify-end"
@@ -253,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
       textarea.value = ""
       textarea.style.height = "auto"
 
-      chatsContainer.scrollTop = chatsContainer.scrollHeight
+      smartScroll() // UPDATED: Use smart scroll
 
       const loadingIndicator = showLoadingIndicator()
 
