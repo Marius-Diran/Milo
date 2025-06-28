@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatsContainer = document.querySelector(".chats")
   const originalHeight = textarea.scrollHeight
 
+  // ADD THIS: Store conversation history
+  let conversationMessages = []
+
   // Make sure marked is loaded
   const markedScript = document.createElement("script")
   markedScript.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js"
@@ -98,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const messageContainer = document.createElement("div")
       messageContainer.className =
-        "inline-block max-w-[80%] py-2 px-4 rounded-4xl break-words text-content max-sm:max-w-[100%] markdown-content"
+        "inline-block max-w-[80%] py-2 px-4 rounded-4xl break-words text-content max-sm:max-w-[100%] max-sm:-ml-4 markdown-content"
 
       // Configure marked for syntax highlighting
       marked.setOptions({
@@ -133,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
       function typeWriter() {
         if (index < rawHTML.length) {
           tempDiv.innerHTML = rawHTML.slice(0, index + 1)
+          chatsContainer.scrollTop = chatsContainer.scrollHeight
 
           // Apply syntax highlighting to any complete code blocks as they appear
           tempDiv.querySelectorAll("pre code").forEach((block) => {
@@ -183,30 +187,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Function to send message to API
+  // UPDATED: Function to send message to API with conversation history
   async function sendMessageToAPI(message) {
     try {
-      // Add a hint to the API to respond with Markdown
-      const enhancedMessage = `User: ${message}
-
-          Instructions:
-          - Respond naturally like ChatGPT would.
-          - Be friendly and concise.
-          - Use Markdown *only* if the reply includes code, lists, or technical info.
-          - Do NOT repeat or rephrase the user's question.
-          - Respond like a helpful assistant.
-          - If the user asks for code, provide it in a code block.
-          - ALWAYS use syntax highlighting for code blocks by specifying the language.
-          - Use \`\`\`javascript, \`\`\`python, \`\`\`html, etc. at the start of every code block.
-          - Never use plain code blocks without language specification.
-          - Ensure all code examples have proper color coding through language-specific syntax highlighting.`
+      // Add user message to conversation history
+      const userMessage = {
+        role: "user",
+        content: message
+      }
+      
+      const requestPayload = {
+        messages: [...conversationMessages, userMessage],
+        systemPrompt: `You are Milo, a helpful AI assistant. Instructions:
+        - Respond naturally and conversationally
+        - Be friendly and concise
+        - Use Markdown for code, lists, or technical info
+        - Always use syntax highlighting for code blocks (specify language like \`\`\`javascript)
+        - Remember previous parts of our conversation and refer to them when relevant
+        - Keep the conversation flowing naturally`
+      }
 
       const response = await fetch("/api/openai", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: enhancedMessage }),
+        body: JSON.stringify(requestPayload),
       })
 
       if (!response.ok) {
@@ -214,6 +220,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json()
+      
+      // Update conversation history with the full conversation from API
+      if (data.messages) {
+        conversationMessages = data.messages
+      }
+      
       return data
     } catch (error) {
       console.error("Error sending message to API:", error)

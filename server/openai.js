@@ -11,27 +11,68 @@ const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENROUTE_AI,
   defaultHeaders: {
-    "HTTP-Referer": "https://milo-beryl.vercel.app/", // Optional. Site URL for rankings on openrouter.ai.
-    "X-Title": "Milo", // Optional. Site title for rankings on openrouter.ai.
+    "HTTP-Referer": "https://milo-beryl.vercel.app/",
+    "X-Title": "Milo",
   },
 });
+
 router.post("/", async (req, res) => {
-  const userMessage = req.body.message;
-  if (!userMessage) {
-    return res.status(400).json({ error: "Please provide { message } in JSON body" });
+  const { message, messages, systemPrompt } = req.body;
+  
+  // Validate input - either message OR messages array should be provided
+  if (!message && !messages) {
+    return res.status(400).json({ 
+      error: "Please provide either { message } or { messages } array in JSON body" 
+    });
   }
+
   try {
+    let conversationMessages = [];
+
+    // Add system prompt if provided
+    if (systemPrompt) {
+      conversationMessages.push({
+        role: "system",
+        content: systemPrompt
+      });
+    }
+
+    // Handle conversation history
+    if (messages && Array.isArray(messages)) {
+      // Use provided conversation history
+      conversationMessages = conversationMessages.concat(messages);
+    } else {
+      // Single message - create new conversation
+      conversationMessages.push({
+        role: "user",
+        content: message
+      });
+    }
+
     const completion = await openai.chat.completions.create({
       model: "openai/gpt-4o-mini-2024-07-18",
-      messages: [
-        {
-          role: "user",
-          content: userMessage
-        },
-      ],
+      messages: conversationMessages,
+      temperature: 0.7, // Add some creativity for better conversation flow
+      max_tokens: 1000, // Reasonable limit
     });
+
     const aiReply = completion.choices[0].message.content;
-    res.json({reply: aiReply});
+    
+    // Return both the reply and updated conversation history
+    const updatedMessages = [
+      ...conversationMessages,
+      {
+        role: "assistant",
+        content: aiReply
+      }
+    ];
+
+    res.json({
+      reply: aiReply,
+      messages: updatedMessages, // Send back full conversation for next request
+      tokenUsage: completion.usage // Optional: track token usage
+    });
+
   } catch (err) {
     console.error("OpenAI error:", err);
     res.status(500).json({ error: "Something went wrong" });
