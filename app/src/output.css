@@ -230,12 +230,6 @@
   .mr-\[4vw\] {
     margin-right: 4vw;
   }
-  .mr-\[8vw\] {
-    margin-right: 8vw;
-  }
-  .mr-\[20vw\] {
-    margin-right: 20vw;
-  }
   .mr-auto {
     margin-right: auto;
   }
@@ -245,20 +239,8 @@
   .ml-\[17vw\] {
     margin-left: 17vw;
   }
-  .ml-\[55vw\] {
-    margin-left: 55vw;
-  }
-  .ml-\[60vw\] {
-    margin-left: 60vw;
-  }
   .ml-\[62vw\] {
     margin-left: 62vw;
-  }
-  .ml-\[64vw\] {
-    margin-left: 64vw;
-  }
-  .ml-\[65vw\] {
-    margin-left: 65vw;
   }
   .ml-\[67vw\] {
     margin-left: 67vw;
@@ -289,9 +271,6 @@
   }
   .h-\[4\.5vh\] {
     height: 4.5vh;
-  }
-  .h-\[10vh\] {
-    height: 10vh;
   }
   .h-\[20vh\] {
     height: 20vh;
@@ -335,17 +314,11 @@
   .w-\[15\%\] {
     width: 15%;
   }
-  .w-\[20\%\] {
-    width: 20%;
-  }
   .w-\[50\%\] {
     width: 50%;
   }
   .w-\[51\%\] {
     width: 51%;
-  }
-  .w-\[59\=0\%\] {
-    width: 59=0%;
   }
   .w-\[60\%\] {
     width: 60%;
