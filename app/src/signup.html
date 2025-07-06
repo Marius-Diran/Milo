@@ -7,10 +7,17 @@
   <link href="/output.css" rel="stylesheet">
   <title>Sign-up page</title>
 </head>
-<body class="bg-[#CDCDCD]">
+<body class="bg-white">
   <div class="grand-container"></div>
-  <div class="login-box bg-white w-[60%] mx-auto mt-20 p-10 rounded-lg shadow-lg">
-    <h1 class="text-black">Create an Account</h1>
+  <div class="login-box bg-[#D3D3D3] w-[70%] mx-auto mt-20 p-10 rounded-lg shadow-lg">
+    <h1 class="text-black font-semibold text-3xl text-center">Create your Account</h1>
+
+    <form>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" class="w-full p-2 mt-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+      </div>
+    </form>
   </div>
 </body>
 </html>
