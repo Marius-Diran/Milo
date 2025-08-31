@@ -16,12 +16,18 @@
       <form>
         <div class="form-group mx-auto w-[50%]">
           <label for="email" class="text-black font-normal">Email</label>
-          <input type="email" placeholder="email@address.com" id="email" class="w-full p-2 mt-1 border-2 border-solid border-[#2f4858] rounded-md text-black transition-all duration-300" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+          <div class="relative w-full mt-1">
+            <i class="fa-solid fa-envelope absolute left-80 top-1/2 -translate-y-1/2" style="color: #616161;"></i>
+            <input type="email" placeholder="email@address.com" id="email" class="w-full p-2 mt-1 border-2 border-solid border-[#2f4858] rounded-md text-black transition-all duration-300" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+          </div>
         </div>
 
         <div class="form-group mx-auto w-[50%] mt-5">
           <label for="password" class="text-black font-normal">Password</label>
-          <input type="password" placeholder="8+ Characters" id="password" class="w-full p-2 mt-1 border-2 border-solid border-[#2f4858] text-black rounded-md transition-all duration-300" required minlength="8">
+          <div class="relative w-full mt-1">
+            <i class="fa-solid fa-lock absolute left-80 top-1/2 -translate-y-1/2 cursor-pointer" style="color: #616161;"></i>
+            <input type="password" placeholder="8+ Characters" id="password" class="w-full p-2 mt-1 border-2 border-solid border-[#2f4858] text-black rounded-md transition-all duration-300" required minlength="8">
+          </div>
         </div>
 
         <div class="form-group-btn w-[50%] mx-auto">
@@ -31,5 +37,8 @@
     </div>
   </div>
   </div>
+  
+  <script src="https://kit.fontawesome.com/ad2f1382aa.js" crossorigin="anonymous"></script>
+  <script src="email.js"></script>
 </body>
 </html>
