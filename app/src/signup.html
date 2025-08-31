@@ -8,27 +8,28 @@
   <title>Sign-up page</title>
 </head>
 <body class="bg-white">
-  <div class="grand-container"></div>
-  <div class="login-box bg-[#D3D3D3] w-[50%] mx-auto mt-20 p-10 rounded-lg shadow-lg">
+  <div class="grand-container">
+    <div class="login-box bg-[#D3D3D3] w-[50%] h-[55vh] mx-auto mt-20 p-10 rounded-lg shadow-lg">
     <h1 class="text-black font-semibold text-3xl text-center">Create your Account</h1>
 
     <div class="mt-14">
       <form>
-      <div class="form-group mx-auto w-[50%]">
-        <label for="email" class="text-black font-normal">Email</label>
-        <input type="email" placeholder="email@address.com" id="email" class="w-full p-2 mt-1 border-2 border-solid border-[#2f4858] rounded-md text-black" required>
-      </div>
+        <div class="form-group mx-auto w-[50%]">
+          <label for="email" class="text-black font-normal">Email</label>
+          <input type="email" placeholder="email@address.com" id="email" class="w-full p-2 mt-1 border-2 border-solid border-[#2f4858] rounded-md text-black transition-all duration-300" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+        </div>
 
-      <div class="form-group mx-auto w-[50%] mt-5">
-        <label for="password" class="text-black font-normal">Password</label>
-        <input type="password" placeholder="8+ Characters" id="password" class="w-full p-2 mt-1 border-2 border-solid border-[#2f4858] text-black rounded-md" required>
-      </div>
+        <div class="form-group mx-auto w-[50%] mt-5">
+          <label for="password" class="text-black font-normal">Password</label>
+          <input type="password" placeholder="8+ Characters" id="password" class="w-full p-2 mt-1 border-2 border-solid border-[#2f4858] text-black rounded-md transition-all duration-300" required minlength="8">
+        </div>
 
-      <div class="form-group-btn w-[50%] mx-auto">
-        <button type="submit" class="w-full bg-[#2f4858] text-white font-semibold p-2 mt-5 rounded-lg hover:cursor-pointer hover:bg-[#1c2a36] transition duration-300">Sign Up</button>
-      </div>
-    </form>
+        <div class="form-group-btn w-[50%] mx-auto">
+          <button type="submit" class="w-full bg-[#2f4858] text-white font-semibold p-2 mt-5 rounded-lg hover:cursor-pointer hover:bg-[#1c2a36] transition-all duration-300">Sign Up</button>
+        </div>
+      </form>
     </div>
+  </div>
   </div>
 </body>
 </html>

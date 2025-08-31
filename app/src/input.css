@@ -37,6 +37,20 @@ body{
   overflow-wrap: break-word;
 }
 
+input[type="email"], input[type="password"] {
+  outline: none;
+}
+
+input[type="email"]:valid, input[type="password"]:valid {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+input[type="email"]:invalid:not(:placeholder-shown), input[type="password"]:invalid:not(:placeholder-shown) {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
 
 /* Improve scrollbar appearance */
 .chats::-webkit-scrollbar {
@@ -56,6 +70,7 @@ body{
   white-space: pre-wrap;
   word-break: break-word;
 }
+
 
 @media (max-width: 425px) and (min-width: 320px) {
   .input-box {

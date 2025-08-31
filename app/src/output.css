@@ -266,6 +266,9 @@
   .h-\[4\.5vh\] {
     height: 4.5vh;
   }
+  .h-\[55vh\] {
+    height: 55vh;
+  }
   .h-\[73vh\] {
     height: 73vh;
   }
@@ -493,11 +496,6 @@
     --tw-blur: blur(8px);
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
-  .transition {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
-  }
   .transition-all {
     transition-property: all;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
@@ -674,6 +672,17 @@ body {
 }
 .text-content {
   overflow-wrap: break-word;
+}
+input[type="email"], input[type="password"] {
+  outline: none;
+}
+input[type="email"]:valid, input[type="password"]:valid {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+input[type="email"]:invalid:not(:placeholder-shown), input[type="password"]:invalid:not(:placeholder-shown) {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 .chats::-webkit-scrollbar {
   width: 3px;
