@@ -9,7 +9,7 @@ router.use(express.json())
 
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTE_AI,
+  apiKey: process.env.MILO_API_KEY,
   defaultHeaders: {
     "HTTP-Referer": "https://milo-beryl.vercel.app/",
     "X-Title": "Milo",
@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
     }
 
     const completion = await openai.chat.completions.create({
-      model: "openai/gpt-4o-mini-2024-07-18",
+      model: "openai/gpt-oss-120b:free",
       messages: conversationMessages,
       temperature: 0.7, // Add some creativity for better conversation flow
       max_tokens: 1000, // Reasonable limit
