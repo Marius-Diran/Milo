@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
     }
 
     const completion = await openai.chat.completions.create({
-      model: "openai/gpt-oss-120b:free",
+      model: "deepseek/deepseek-chat-v3.1:free",
       messages: conversationMessages,
       temperature: 0.7, // Add some creativity for better conversation flow
       max_tokens: 1000, // Reasonable limit
