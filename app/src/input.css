@@ -79,13 +79,13 @@ input[type="email"]:invalid:not(:placeholder-shown), input[type="password"]:inva
   }
 }
 
-@media (max-width: 375px){
+@media (max-width: 375px) {
   .send-btn{
     width:  11.5%;
   }
 }
 
-@media (max-width: 320px){
+@media (max-width: 320px) {
   nav h1 {
     font-size: 1.2rem;
     margin-left: 15vw;
@@ -97,6 +97,41 @@ input[type="email"]:invalid:not(:placeholder-shown), input[type="password"]:inva
 
   .send-btn{
     width:  14.5%;
+  }  
+}
+
+@media (max-width: 375px) {
+  .login-box {
+    width: 98%;
   }
-  
+
+  .form-group {
+    width: 100%;
+  }
+
+  .fa-envelope {
+    left: 64vw;
+  }
+
+  .fa-lock {
+    left: 64vw;
+  }
+}
+
+@media (max-width: 320px) {
+  .login-box {
+    width: 98%;
+  }
+
+  .form-group {
+    width: 100%;
+  }
+
+  .fa-envelope {
+    display: none !important;
+  }
+
+  .fa-lock {
+    display: none !important;
+  }
 }

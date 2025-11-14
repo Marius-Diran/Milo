@@ -7,29 +7,33 @@
   <link href="/output.css" rel="stylesheet">
   <title>Sign-up page</title>
 </head>
-<body class="bg-[url(/images/signup-bg.jpg)] bg-cover bg-center min-h-screen flex items-center justify-center">
+<body class="bg-[url(/images/signup-bg.jpg)] bg-cover bg-center min-h-screen flex items-center justify-center max-sm:bg-cover max-sm:bg-center max-sm:min-h-screen">
   <div class="grand-container">
-    <div class="login-box bg-white/10 rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm border border-white/30 w-[37%] -mt-10 mx-auto p-10">
+    <div class="login-box bg-white/10 rounded-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm border border-white/30 w-[37%] -mt-10 mx-auto p-10 max-sm:w-[90%]">
     <h1 class="text-white font-semibold text-3xl text-center">Create your Account</h1>
 
     <div class="mt-10">
       <form>
-        <div class="form-group mx-auto w-[70%]">
+        <div class="form-group mx-auto w-[70%] max-sm:w-[95%]">
           <div class="relative w-full mt-1">
-            <i class="fa-solid fa-envelope absolute left-[19vw] top-1/2 -translate-y-1/2" style="color: #ffffff;"></i>
+            <i class="fa-solid fa-envelope absolute left-[19vw] top-1/2 -translate-y-1/2 max-sm:left-72" style="color: #ffffff;"></i>
             <input type="email" placeholder="Email" id="email" class="w-full p-3 pl-5 mt-1 border-2 border-solid border-[#ffffff] rounded-4xl text-white bg-transparent transition-all duration-300" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
           </div>
         </div>
 
-        <div class="form-group mx-auto w-[70%] mt-5">
+        <div class="form-group mx-auto w-[70%] mt-5 max-sm:w-[95%]">
           <div class="relative w-full mt-1">
-            <i class="fa-solid fa-lock absolute left-[19vw] top-1/2 -translate-y-1/2 cursor-pointer" style="color: #ffffff;"></i>
+            <i class="fa-solid fa-lock absolute left-[19vw] top-1/2 -translate-y-1/2 cursor-pointer max-sm:left-72" style="color: #ffffff;"></i>
             <input type="password" placeholder="Password" id="password" class="w-full p-3 pl-5 mt-1 border-2 border-solid border-[#ffffff] rounded-4xl text-white bg-transparent transition-all duration-300" required minlength="8">
           </div>
         </div>
 
         <div class="form-group-btn mt-1.5 w-[70%] mx-auto">
-          <button type="submit" id="submit" class="w-full bg-[#ffffff] text-black font-semibold p-3 mt-5 border-2 border-solid border-white rounded-4xl hover:cursor-pointer hover:bg-transparent hover:border-2 hover:border-solid hover:border-white hover:text-white transition-all duration-300">Sign Up</button>
+          <button type="submit" id="submit" class="w-full bg-[#ffffff] text-black font-semibold p-3 mt-5 border-2 border-solid border-white rounded-4xl hover:cursor-pointer hover:bg-transparent hover:border-2 hover:border-solid hover:border-white hover:text-white transition-all duration-300 max-sm:hover:border-2 max-sm:hover:border-solid max-sm:hover:border-white max-sm:hover:text-white max-sm:hover:bg-transparent">Sign Up</button>
+        </div>
+
+        <div class="error-message-box mt-4 text-center text-red-500">
+          <p class="error-message"></p>
         </div>
 
         <div class="register-box mt-8 text-center">

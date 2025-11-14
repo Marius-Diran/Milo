@@ -31,18 +31,34 @@
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
+  // error message display
+  const errorMessageDisplay = document.querySelector(".error-message");
+  if (!email && !password) {
+    errorMessageDisplay.textContent = "Please enter a valid email and password.";
+    return;
+  }
+
+  if (!email) {
+    errorMessageDisplay.textContent = "Please enter a valid email.";
+    return;
+  }
+
+  if (!password) {
+    errorMessageDisplay.textContent = "Please enter a valid password.";
+    return;
+  }
+
   createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed up
     const user = userCredential.user;
-    alert("Creating User.....");
     window.location.href = "index.html"
     // ...
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    alert(errorMessage);
+    // alert(errorMessage);
     // ..
   });
   })
