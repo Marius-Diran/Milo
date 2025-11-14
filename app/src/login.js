@@ -52,7 +52,7 @@
   .then((userCredential) => {
     // Signed up
     const user = userCredential.user;
-    window.location.href = "index.html"
+    window.location.href = "/"
     // ...
   })
   .catch((error) => {
