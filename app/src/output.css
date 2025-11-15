@@ -891,6 +891,34 @@ input[type="email"]:invalid:not(:placeholder-shown), input[type="password"]:inva
     width: 14.5%;
   }
 }
+@media (max-width: 430px) and (min-width: 376px) {
+  .login-box {
+    width: 90%;
+  }
+  .form-group {
+    width: 100%;
+  }
+  .fa-envelope {
+    left: 60vw;
+  }
+  .fa-lock {
+    left: 60vw;
+  }
+}
+@media (max-width: 386px) {
+  .login-box {
+    width: 90%;
+  }
+  .form-group {
+    width: 100%;
+  }
+  .fa-envelope {
+    left: 58vw;
+  }
+  .fa-lock {
+    left: 58vw;
+  }
+}
 @media (max-width: 375px) {
   .login-box {
     width: 98%;
